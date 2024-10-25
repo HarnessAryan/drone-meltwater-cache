@@ -353,7 +353,7 @@ func main() {
 		&cli.StringFlag{
 			Name:    "filesystem.cache-root, fcr",
 			Usage:   "local filesystem root directory for the filesystem cache",
-			Value:   "/tmp/cache",
+			Value:   "../tmp/cache",
 			EnvVars: []string{"PLUGIN_FILESYSTEM_CACHE_ROOT", "FILESYSTEM_CACHE_ROOT"},
 		},
 
