@@ -33,9 +33,9 @@ func New(l log.Logger, c Config) (*Backend, error) {
 
 	level.Debug(l).Log("msg", "Filesystem backend", "config", fmt.Sprintf("%#v", c))
 
-	if _, err := os.Stat(c.CacheRoot); err != nil {
-		return nil, fmt.Errorf("make sure volume is mounted, <%s> as cache root, %w", c.CacheRoot, err)
-	}
+	// if _, err := os.Stat(c.CacheRoot); err != nil {
+	// 	return nil, fmt.Errorf("make sure volume is mounted, <%s> as cache root, %w", c.CacheRoot, err)
+	// }
 
 	return &Backend{logger: l, cacheRoot: c.CacheRoot}, nil
 }
