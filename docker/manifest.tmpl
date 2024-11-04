@@ -1,4 +1,4 @@
-image: harnessaryan/cache:{{#if build.tag}}{{trimPrefix "v" build.tag}}{{else}}latest{{/if}}
+image: harnessaryan/s3-cache:{{#if build.tag}}{{trimPrefix "v" build.tag}}{{else}}latest{{/if}}
 {{#if build.tags}}
 tags:
 {{#each build.tags}}
@@ -7,42 +7,42 @@ tags:
 {{/if}}
 manifests:
   -
-    image: harnessaryan/cache:{{#if build.tag}}{{trimPrefix "v" build.tag}}-{{/if}}linux-amd64
+    image: harnessaryan/s3-cache:{{#if build.tag}}{{trimPrefix "v" build.tag}}-{{/if}}linux-amd64
     platform:
       architecture: amd64
       os: linux
   -
-    image: harnessaryan/cache:{{#if build.tag}}{{trimPrefix "v" build.tag}}-{{/if}}linux-arm64
+    image: harnessaryan/s3-cache:{{#if build.tag}}{{trimPrefix "v" build.tag}}-{{/if}}linux-arm64
     platform:
       architecture: arm64
       os: linux
       variant: v8
   -
-    image: harnessaryan/cache:{{#if build.tag}}{{trimPrefix "v" build.tag}}-{{/if}}linux-arm
+    image: harnessaryan/s3-cache:{{#if build.tag}}{{trimPrefix "v" build.tag}}-{{/if}}linux-arm
     platform:
       architecture: arm
       os: linux
       variant: v7
   -
-    image: harnessaryan/cache:{{#if build.tag}}{{trimPrefix "v" build.tag}}-{{/if}}windows-1809-amd64
+    image: harnessaryan/s3-cache:{{#if build.tag}}{{trimPrefix "v" build.tag}}-{{/if}}windows-1809-amd64
     platform:
       architecture: amd64
       os: windows
       version: 1809
   -
-    image: harnessaryan/cache:{{#if build.tag}}{{trimPrefix "v" build.tag}}-{{/if}}windows-1903-amd64
+    image: harnessaryan/s3-cache:{{#if build.tag}}{{trimPrefix "v" build.tag}}-{{/if}}windows-1903-amd64
     platform:
       architecture: amd64
       os: windows
       version: 1903
   -
-    image: harnessaryan/cache:{{#if build.tag}}{{trimPrefix "v" build.tag}}-{{/if}}windows-1909-amd64
+    image: harnessaryan/s3-cache:{{#if build.tag}}{{trimPrefix "v" build.tag}}-{{/if}}windows-1909-amd64
     platform:
       architecture: amd64
       os: windows
       version: 1909
   -
-    image: harnessaryan/cache:{{#if build.tag}}{{trimPrefix "v" build.tag}}-{{/if}}windows-ltsc2022-amd64
+    image: harnessaryan/s3-cache:{{#if build.tag}}{{trimPrefix "v" build.tag}}-{{/if}}windows-ltsc2022-amd64
     platform:
       architecture: amd64
       os: windows
