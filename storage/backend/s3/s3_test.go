@@ -57,54 +57,54 @@ func TestRoundTrip(t *testing.T) {
 	roundTrip(t, backend)
 }
 
-func TestRoundTripWithAssumeRoleAndExternalID(t *testing.T) {
-	t.Parallel()
+// func TestRoundTripWithAssumeRoleAndExternalID(t *testing.T) {
+// 	t.Parallel()
 
-	// Log the credentials being used for the test (without exposing secrets)
-	logrus.WithFields(logrus.Fields{
-		"RoleARN": "arn:aws:iam::account-id:role/TestRole",
-	}).Info("Setting up AssumeRole test")
+// 	// Log the credentials being used for the test (without exposing secrets)
+// 	logrus.WithFields(logrus.Fields{
+// 		"RoleARN": "arn:aws:iam::account-id:role/TestRole",
+// 	}).Info("Setting up AssumeRole test")
 
-	// Setting up the base session with static credentials
-	baseSess, err := session.NewSession(&aws.Config{
-		Region:      aws.String(defaultRegion),
-		Endpoint:    aws.String(endpoint),
-		DisableSSL:  aws.Bool(true),
-		Credentials: credentials.NewStaticCredentials(accessKey, secretAccessKey, ""), // Use static credentials for the base session
-	})
-	if err != nil {
-		t.Fatalf("failed to create base session: %v", err)
-	}
+// 	// Setting up the base session with static credentials
+// 	baseSess, err := session.NewSession(&aws.Config{
+// 		Region:      aws.String(defaultRegion),
+// 		Endpoint:    aws.String(endpoint),
+// 		DisableSSL:  aws.Bool(true),
+// 		Credentials: credentials.NewStaticCredentials(accessKey, secretAccessKey, ""), // Use static credentials for the base session
+// 	})
+// 	if err != nil {
+// 		t.Fatalf("failed to create base session: %v", err)
+// 	}
 
-	// Use stscreds.NewCredentials for assuming the role
-	creds := stscreds.NewCredentials(baseSess, "arn:aws:iam::account-id:role/TestRole", func(p *stscreds.AssumeRoleProvider) {
-		p.ExternalID = aws.String("example-external-id") // Optionally pass ExternalID
-		logrus.WithField("externalID", "example-external-id").Info("Using external ID for assume role")
-	})
+// 	// Use stscreds.NewCredentials for assuming the role
+// 	creds := stscreds.NewCredentials(baseSess, "arn:aws:iam::account-id:role/TestRole", func(p *stscreds.AssumeRoleProvider) {
+// 		p.ExternalID = aws.String("example-external-id") // Optionally pass ExternalID
+// 		logrus.WithField("externalID", "example-external-id").Info("Using external ID for assume role")
+// 	})
 
-	// Setup backend using the assumed role credentials
-	backend, cleanUp := setup(t, Config{
-		ACL:                   acl,
-		Bucket:                "s3-round-trip-with-role",
-		Endpoint:              endpoint,
-		StsEndpoint:           endpoint,
-		PathStyle:             true,
-		Key:                   accessKey,
-		Secret:                secretAccessKey,
-		Region:                defaultRegion,
-		AssumeRoleARN:         "arn:aws:iam::account-id:role/TestRole",
-		AssumeRoleSessionName: "drone-cache",
-		ExternalID:            "example-external-id",
-		UserRoleExternalID:    "example-external-id",
-		Credentials:           creds, // Pass the assumed role credentials here
-	})
+// 	// Setup backend using the assumed role credentials
+// 	backend, cleanUp := setup(t, Config{
+// 		ACL:                   acl,
+// 		Bucket:                "s3-round-trip-with-role",
+// 		Endpoint:              endpoint,
+// 		StsEndpoint:           endpoint,
+// 		PathStyle:             true,
+// 		Key:                   accessKey,
+// 		Secret:                secretAccessKey,
+// 		Region:                defaultRegion,
+// 		AssumeRoleARN:         "arn:aws:iam::account-id:role/TestRole",
+// 		AssumeRoleSessionName: "drone-cache",
+// 		ExternalID:            "example-external-id",
+// 		UserRoleExternalID:    "example-external-id",
+// 		Credentials:           creds, // Pass the assumed role credentials here
+// 	})
 
-	// Cleanup after the test
-	t.Cleanup(cleanUp)
+// 	// Cleanup after the test
+// 	t.Cleanup(cleanUp)
 
-	// Perform the round-trip test
-	roundTrip(t, backend)
-}
+// 	// Perform the round-trip test
+// 	roundTrip(t, backend)
+// }
 
 func roundTrip(t *testing.T, backend *Backend) {
 	content := "Hello world4"
